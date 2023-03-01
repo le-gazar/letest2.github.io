@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/7fe2f17e67.js" crossorigin="anonymous"></script>
+    <title>Tania,s Hairs peoples!</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark"> 
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a class="navbar-brand" href="http://127.0.0.1:8000/blog/">Tania's Hairs Peoples</a>
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="http://127.0.0.1:8000/essai/"> article <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="http://127.0.0.1:8000/blog/" target="_blank">info</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#contact">contact</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" action="{% url 'search'%}">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name='article'>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+      <div class=" text-center mb-3 mt-2" style='font-size:30px;font-family:Bahnschrift' > <strong> plus de detail sur le produit  </strong> </div>
+      {%block content%}
+        <div class='container' >
+          <div class='row'>
+            <div class='col-md-8'>
+
+              {% if article.image == 'http://default'%}
+              <img style='width:600px' src='https://via.placeholder.com/400x300' alt="img">
+
+              {% else%}
+              
+              <img style='width:600px' src='{{article.image.url}}' alt="img" style='position: fixed;'>
+              {%endif%}
+              <h1> {{article.category}}</h1>
+              <p> {{article.name}}</P>
+              <p> {{article.description}}</P><br>
+              <p> dans nos magasin il y a {{article.quantity}} cartons de ce produit</P>
+              <p> ce produit est de qualite {{article.quality}}</P>
+              <p style='color:red;font-size:20px'> {{article.price}} FCFA</P>
+              <a href="https://s.htr.cm/qtMe"  class="btn btn-primary"> acheter ce produit</a>
+              <p> cree il y a {{article.created_at|timesince}}   et a ete approvisionner il y a {{article.upload_at|timesince}}</P>
+            </div>
+            <div class='col-md-4'>
+              <h1 style='font-size:30px;font-family:Arial'> les articles en relations </h1>
+              <div class="row">
+                {% for article in list_product %}
+                <div class='col-md-8 mb-2'>
+                  
+                  {% if article.image == 'http://default'%}
+                  <a href="{%url 'detail' article.id%}"> <img class="card-img-top" src="https://via.placeholder.com/400x300" style="height:200px;" alt="Card image cap"></a>
+
+                  {% else%}
+                  <a href="{%url 'detail' article.id%}"><img src="{{article.image.url}}" alt='...' style='width:200px;'></a>
+                  {%endif%}
+
+                </div>
+                <div class='col-4'>
+                  <h5>{{article.category}}<br></h5>
+                  {{article.description|truncatewords:6}}
+                  <a href="{%url 'detail' article.id%}" class="btn btn-primary">see more</a>
+                  
+                  <p class="card-text" style='font-size:13px'>publie il y a {{ article.created_at|timesince}}</p>
+                </div>
+                {% endfor%}
+              </div>
+                  
+            </div>
+          </div>
+        </div>
+
+      {%endblock%}
+      
+
+
+
+      <footer class="bg-dark text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+          <!-- Section: Social media -->
+          <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+      
+            <!-- Twitter -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-twitter"></i
+            ></a>
+      
+            <!-- Google -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-google"></i
+            ></a>
+      
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-instagram"></i
+            ></a>
+      
+            <!-- Linkedin -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+      
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-github"></i
+            ></a>
+          </section>
+          <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          © 2020 Copyright:
+          <a class="text-white" href="https://mdbootstrap.com/">tania's hairs Peoples</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+    
+          
+    
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+      </body>
+    </html>
+    
+    
+        
